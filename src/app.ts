@@ -1,13 +1,14 @@
 import mongoose from "mongoose";
 import { url } from "./config/db.config";
 import createServer from "./server";
-import dotenv from "dotenv";
-
-dotenv.config();
 const listenPort =  8000;
 
+if (!url.dbUrl) {
+  throw new Error("Database URL is not defined");
+}
+
 mongoose
-  .connect(url)
+  .connect(url.dbUrl)
   .then(() => {
     const app = createServer();
     app.listen(listenPort, () => {

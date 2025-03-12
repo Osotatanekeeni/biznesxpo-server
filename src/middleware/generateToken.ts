@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import IUser from "../interfaces/user";
 
 export const generateAccessToken = (user: any) => {
-    console.log("This is the JWT Secret: ", process.env.JWT_SECRET);
     if (process.env.JWT_SECRET) {
       return jwt.sign(
         {

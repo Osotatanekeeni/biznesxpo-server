@@ -1,2 +1,8 @@
-const database = "mongodb+srv://tatanekari52:JffxNLk6ptmiIGKD@biznesxpocluster.puwyy.mongodb.net/biznesxpo?retryWrites=true&w=majority&appName=BiznesxpoCluster";
-export const url = database;
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const database = process.env.DATABASE_URI;
+
+const dbUrl = `${database}`;
+export const url = { dbUrl };
