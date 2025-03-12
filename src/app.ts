@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 import { url } from "./config/db.config";
 import createServer from "./server";
+import dotenv from "dotenv";
 
+dotenv.config();
 const listenPort =  8000;
 
 mongoose

@@ -2,6 +2,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import morgan from "morgan";
 import express from "express";
+import authRoutes from "./routes/authRoutes";
+import userRoutes from "./routes/userRoutes";
 
 export default function createServer() {
   const app = express();
@@ -15,6 +17,8 @@ export default function createServer() {
   });
 
   // routes
+  app.use("", authRoutes);
+  app.use("/api/v1/users", userRoutes);
 
   return app;
 }

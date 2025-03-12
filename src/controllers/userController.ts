@@ -4,7 +4,7 @@ import User from "../models/User";
 import { StatusCodes } from "http-status-codes";
 import bcrypt from "bcryptjs";
 
-const registerUser = async (req: Request, res: Response) => {
+const registerUser = async (req: Request, res: Response): Promise<any> => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({
@@ -21,7 +21,7 @@ const registerUser = async (req: Request, res: Response) => {
     });
   }
 
-  if (!firstName || !lastName || !email || !phoneNumber || password) {
+  if (!firstName || !lastName || !email || !phoneNumber || !password) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
       message: "Please provide all fields",

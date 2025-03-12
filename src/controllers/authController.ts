@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import { generateAccessToken } from "../middleware/generateToken";
 import bcrypt from "bcryptjs";
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response): Promise<any> => {
     try {
         const { email, password } = req.body;
 
@@ -29,6 +29,8 @@ export const login = async (req: Request, res: Response) => {
         const token = generateAccessToken(userDetails);
         const passwordMatches = await bcrypt.compare(password, user.user.password);
 
+        console.log("This is the token: ", token);
+
         if (passwordMatches) {
             return res.status(StatusCodes.OK).json({
                 success: true,
@@ -42,7 +44,7 @@ export const login = async (req: Request, res: Response) => {
             success: false,
             message: "Incorrect password"
         });
-    } catch (error) {
+    } catch (error: any) {
         res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ success: false, message: error.message });
