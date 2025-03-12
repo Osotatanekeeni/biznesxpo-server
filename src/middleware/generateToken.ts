@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import IUser from "../interfaces/user";
 
-export const generateAccessToken = (user: IUser) => {
+export const generateAccessToken = (user: any) => {
     if (process.env.JWT_SECRET) {
       return jwt.sign(
         {
