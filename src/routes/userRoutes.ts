@@ -12,5 +12,7 @@ router.post(
     body("email").isEmail(),
     controller.registerUser
   );
+  router.get("/user/:id", controller.getUserDetails);
+  router.put("/user/:id", controller.updateUserDetails);
 
   export default router;

@@ -11,7 +11,7 @@ export const generateAccessToken = (user: any) => {
           name: user.firstName + " " + user.lastName,
         },
         process.env.JWT_SECRET,
-        { expiresIn: Number(process.env.JWT_LIFETIME) }
+        { expiresIn: "86400" }
       );
     } else {
         return

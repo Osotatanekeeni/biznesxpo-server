@@ -54,4 +54,58 @@ const registerUser = async (req: Request, res: Response): Promise<any> => {
   });
 };
 
-export default { registerUser };
+const getUserDetails = async (req: Request, res: Response): Promise<any> => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+          return res.status(StatusCodes.NOT_FOUND).json({
+            success: false,
+            message: "User not found",
+          });
+        }
+        return res.status(StatusCodes.OK).json({
+          success: true,
+          user,
+        });
+      } catch (error) {
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+          success: false,
+          message: "An error occurred while fetching user details",
+        });
+      }
+}
+
+const updateUserDetails = async (req: Request, res: Response): Promise<any> => {
+    const { firstName, lastName, email, phoneNumber, brandName, position, address } = req.body;
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(StatusCodes.NOT_FOUND).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    if (firstName) user.firstName = firstName;
+    if (lastName) user.lastName = lastName;
+    if (email) user.email = email;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
+    if (brandName) user.brandName = brandName;
+    if (position) user.position = position;
+    if (address) user.address = address;
+
+    await user.save();
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      message: "User updated successfully",
+      user,
+    });
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "An error occurred while updating user details",
+    });
+  }
+}
+
+export default { registerUser, getUserDetails, updateUserDetails };
